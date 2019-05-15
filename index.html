@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <style>
+    .success, .error {
+      color: white;
+      padding: 5px;
+      margin: 5px 0 15px 0;
+    }
+    .success {
+      background: green;
+    }
+    .error {
+      background: red;
+    }
+  </style>
+  <title>KnapSack Calculator</title>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper grey">
+      <div class="container">
+        <a href="#" class="brand-logo">KnapSack</a>
+      </div>
+    </div>
+  </nav>
+
+  <br>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Input Capacity</span>
+        <div class="input-field col s4">
+            <input type="number" placeholder="Maximum Capacity" id="max-capacity">
+        </div>
+        <form class="col">
+            <div class="row">
+              <div class="input-field col s4">
+                <input type="text" placeholder="Add Item" id="item-name">
+                <label for="item-name">KnapSack Item</label>
+              </div>
+              <div class="input-field col s4">
+                <input type="number" id="weight" placeholder="Enter Weight.......">
+                <label for="weight">Weight</label>
+              </div>
+              <div class="input-field col s4">
+                <input type="number" id="value" placeholder="Enter Value.......">
+                <label for="value">Value</label>
+              </div>
+           <button class="add-btn btn grey darken-4"><i class="fa fa-plus"></i>Add Item</button>
+           <button class="ADD-btn btn violet darken-4"><i class="fa fa-plus"></i>Add</button>
+           
+            <ul class="pull-right">
+              <li><a href="#" class="done-btn btn grey">Done</a></li>
+            </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <h5>Capacity: <span class="capacity">0</span></h5> 
+    <h5>Weight: <span class="weight">0</span></h5> 
+    <h5>Value: <span class="value">0</span></h5> 
+  </div>
+
+  <!--Item List-->
+<ul id="item-list" class="collection"></ul>
+<ul class="collection" id="added-item"></ul>
+<script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
