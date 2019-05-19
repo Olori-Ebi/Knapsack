@@ -1,19 +1,20 @@
 const ItemCtrl = (function(){
   // Item Constructor
-  const Item = function(id, name, weight, value) {
+  const Item = function(capacity, id, name, weight, value) {
     this.id = id;
     this.name = name;
     this.weight = weight;
     this.value = value;
+    this.capacity = capacity;
   }
 
   // Data Structure
   const data = {
     items: [
-      {id: 0, name: 'Rice', weight: 20, value: 200},
-      {id: 1, name: 'Beans', weight: 25, value: 300},
-      {id: 2, name: 'Stone', weight: 30, value: 400},
-      {id: 3, name: 'Melon', weight: 35, value: 500}
+      {capacity: 0, id: 0, name: 'Rice', weight: 20, value: 200},
+      {capacity: 0, id: 1, name: 'Beans', weight: 25, value: 300},
+      {capacity: 0, id: 2, name: 'Stone', weight: 30, value: 400},
+      {capacity: 0, id: 3, name: 'Melon', weight: 35, value: 500}
     ],
     CurrentItem: null,
     Capacity: 0,
@@ -38,7 +39,7 @@ const ItemCtrl = (function(){
       weight = parseInt(weight);
       value = parseInt(value);
       //Create new item
-      newItem = new Item(ID,name,weight,value);
+      newItem = new Item(capacity, ID,name,weight,value);
 
       //Add new items to array
       data.items.push(newItem);
@@ -80,13 +81,8 @@ const ItemCtrl = (function(){
       data.items.forEach(function(item) {
         total += item.capacity;
       })
-
-      //Set total weight to total
       data.Capacity = total;
-
-      //Return total weight
       return data.Capacity;
-    
     },
     addItemById: function(id) {
       let found = null;
@@ -99,6 +95,9 @@ const ItemCtrl = (function(){
     },
     setCurrentItem: function(item) {
       data.CurrentItem = item;
+    },
+    getCurrentItem: function() {
+      return data.CurrentItem;
     },
     logData: function() {
       return data;
@@ -118,14 +117,15 @@ const UICtrl = function() {
     value: '#value',
     totCap: '.capacity',
     totWeight: '.weight',
-    totalValue:'.value'
+    totalValue:'.value',
+    itemAddList:'#item-addlist'
   }
 
   return {
     populateItemList: function(items) {
       let html = '';
       items.forEach(function(item) {
-        html += `<li id=item-${item.id} class="collection-item"><strong>Name: ${item.name}, </strong><em> Weight: ${item.weight},</em><em> Value: ${item.value}</em>
+        html += `<li id=item-${item.id} class="collection-item"><strong>Capacity: ${item.capacity}, </strong><strong>Name: ${item.name}, </strong><em> Weight: ${item.weight},</em><em> Value: ${item.value}</em>
         <a href="#" class="secondary-content">
           <i class="add-item fa fa-plus"></i>
         </a>
@@ -152,7 +152,7 @@ const UICtrl = function() {
       //Add ID
       li.id = `item-${item.id}`
       //Add HTML
-      li.innerHTML = `<strong>Name: ${item.name}, </strong><em> Weight: ${item.weight},</em><em> Value: ${item.value}</em>
+      li.innerHTML = `<strong>Capacity: ${item.capacity}, </strong><strong>Name: ${item.name}, </strong><em> Weight: ${item.weight},</em><em> Value: ${item.value}</em>
        <a href="#" class="secondary-content">
         <i class="add-item fa fa-plus"></i>
        </a>`;
@@ -189,7 +189,8 @@ const UICtrl = function() {
     },
     addItemToList: function() {
 
-    },
+      document.querySelector(UISelectors.itemAddList).innerHTML = ItemCtrl.getCurrentItem();
+      },
     clearInput: function() {
         document.querySelector(UISelectors.capacity).value = '',
         document.querySelector(UISelectors.name).value = '',
@@ -251,6 +252,7 @@ const App = (function (ItemCtrl, UICtrl){
       const itemToAdd = ItemCtrl.addItemById(id);
       ItemCtrl.setCurrentItem(itemToAdd);
       UICtrl.addItemToList();
+        
     }
 
     e.preventDefault();
@@ -270,6 +272,10 @@ const App = (function (ItemCtrl, UICtrl){
        const totalValue = ItemCtrl.getTotalValue();
        //show total value in UI
        UICtrl.showTotalValue(totalValue);
+       // Get max capacity
+       const totalCap = ItemCtrl.getMaxCap();
+       //show max capacity in UI
+       UICtrl.showCapacity(totalCap);
       loadEventListeners();
     }
   }
